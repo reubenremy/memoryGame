@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import './MemoryCard.css';
 
 class MemoryCard extends Component {
     render() { 
         return ( 
-            <h1>Card</h1>
+            <div className="MemoryCard">
+                <img 
+                    src='https://www.digitalcrafts.com/img/digitalcrafts-logo-white-y.png'
+                    alt='DigitalCrafts'
+                />
+            </div>
         );
     }
 }
