@@ -9,7 +9,7 @@ class MemoryCard extends Component {
         };
     }
 
-    clickHandler = () => {
+    clickHandler() {
         this.setState({
             isFlipped: !this.state.isFlipped
         })
