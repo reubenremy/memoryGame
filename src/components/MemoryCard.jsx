@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import './MemoryCard.css';
 
 class MemoryCard extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             isFlipped: false
         };
     }
+    
 
     clickHandler() {
         this.setState({
@@ -16,9 +17,9 @@ class MemoryCard extends Component {
     };
 
     render() { 
-        const { isFlipped } = this.state;
+        const { isFlipped } = this.props;
 
-        const memoryCardInnerClass = `MemoryCardInner ${isFlipped === true && 'flipped'}`;
+        const memoryCardInnerClass = `MemoryCardInner ${ isFlipped === true && 'flipped'}`;
 
         return ( 
             <div 
@@ -33,7 +34,7 @@ class MemoryCard extends Component {
                         />
                     </div>
                     <div className="MemoryCardFront">
-                        ∆
+                        { this.props.symbol }
                     </div>
                 </div>
             </div>

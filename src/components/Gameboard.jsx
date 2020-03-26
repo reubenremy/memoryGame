@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { shuffle } from '../utils/shuffle';
 import MemoryCard from './MemoryCard';
 
 const generateDeck = () => {
@@ -12,13 +13,6 @@ const generateDeck = () => {
         });
     };
 
-    const shuffle = arrayToBeShuffled => {
-        for (let iterationNum = arrayToBeShuffled.length - 1; iterationNum > 0; iterationNum--) {
-            const randNum = Math.floor(Math.random() * (iterationNum + 1));
-            [arrayToBeShuffled[iterationNum], arrayToBeShuffled[randNum]] = [arrayToBeShuffled[randNum], arrayToBeShuffled[iterationNum]];
-        }
-        return arrayToBeShuffled;
-    }
     shuffle(deck);
     return deck;
 };
@@ -32,10 +26,28 @@ class Gameboard extends Component {
         }
     }
 
+    pickCard(cardIndex) {
+        if (!this.state.deck[cardIndex].isFlipped) {
+            return this.state.deck[cardIndex].setState({
+                isFlipped: true
+            });
+        } else {
+            return
+        }
+
+
+    }
+
     render() { 
         
         const cardsJSX = this.state.deck.map((card, index) => {
-            return <MemoryCard />
+            return (
+                <MemoryCard 
+                    key = { index }
+                    isFlipped={ card.isFlipped }
+                    symbol={ card.symbol }
+                />
+            )
         });
 
         return (       
