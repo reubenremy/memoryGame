@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './MemoryCard.css';
 
 function MemoryCard(props) { 
-    const { isFlipped } = props;
+    const { symbol, isFlipped, pickCard } = props;
     const memoryCardInnerClass = `MemoryCardInner ${ isFlipped === true && 'flipped'}`;
 
     return ( 
         <div 
             className="MemoryCard"
-            onClick={() => props.pickCard}
+            onClick={ pickCard }
         >
             <div className={ memoryCardInnerClass }>
                 <div className="MemoryCardBack">
@@ -18,7 +18,7 @@ function MemoryCard(props) {
                     />
                 </div>
                 <div className="MemoryCardFront">
-                    { props.symbol }
+                    { symbol }
                 </div>
             </div>
         </div>
