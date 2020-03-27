@@ -8,7 +8,7 @@ function MemoryCard(props) {
     return ( 
         <div 
             className="MemoryCard"
-            onClick={() => props.pickCard()}
+            onClick={() => props.pickCard}
         >
             <div className={ memoryCardInnerClass }>
                 <div className="MemoryCardBack">

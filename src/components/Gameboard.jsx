@@ -13,8 +13,8 @@ const generateDeck = () => {
         });
     };
 
-    shuffle(deck);
-    return deck;
+    return shuffle(deck);
+
 };
 
 class Gameboard extends Component {
@@ -31,35 +31,63 @@ class Gameboard extends Component {
         if (this.state.deck[cardIndex].isFlipped) return;
 
         //We're making a Copy essentially of whats happening in line 31. Why? because we dont want to edit it directly so we're making a copy and assigning it its own value that we can edit it and assign it something different later
-        const cardToFlip = {...this.state.deck[cardIndex]};
+        let cardToFlip = {...this.state.deck[cardIndex]};
         cardToFlip.isFlipped = true;
 
         //Create a copy of the state array and adds chosen cards to it.
-        const newPickedCards = this.state.pickedCards.concat(cardIndex);
+        let newPickedCards = this.state.pickedCards.concat(cardIndex);
 
         //Create a copy of the state of the new deck to copy
-        const newDeck = this.state.deck.map((card, index) => {
+        let newDeck = this.state.deck.map((card, index) => {
             if (cardIndex === index) {
                 return cardToFlip;
             }
             return card;
         })
         
+        if(newPickedCards.length === 2) {
+            let card1Index = newPickedCards[0],
+                card2Index = newPickedCards[1],
+                card1 = newDeck[card1Index],
+                card2 = newDeck[card2Index];
+
+            if (card1Index !== card2Index) {
+                this.unflipCards(card1Index, card2Index)
+            } 
+        }
+        newPickedCards = [];
+
+        
+
         this.setState({
             deck: newDeck,
             pickedCards: newPickedCards
         })
     }
 
+    unFlipCards(card1Index, card2Index) {
+        const { deck } = this.state;
+        let newDeck = deck.map(card => {
+            return { ...card };
+        });
+
+        newDeck[card1Index].isFlipped = false;
+        newDeck[card2Index].isFlipped = false;
+
+        this.setState({
+            deck: newDeck
+        });
+    }
+
     render() { 
-        
-        const cardsJSX = this.state.deck.map((card, index) => {
+        const { deck } = this.state
+        const cardsJSX = deck.map((card, index) => {
             return (
                 <MemoryCard 
                     key = { index }
                     isFlipped={ card.isFlipped }
                     symbol={ card.symbol }
-                    pickCard={ this.pickCard.bind(this, index) }
+                    pickCard={ this.pickCard(index) }
                 />
             )
         });
